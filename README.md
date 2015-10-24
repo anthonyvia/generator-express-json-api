@@ -1,0 +1,1 @@
+# generator-express-json-api
