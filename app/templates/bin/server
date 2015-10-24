@@ -1,0 +1,20 @@
+#!/usr/bin/env node
+'use strict';
+
+var express = require('express');
+var config = require('../lib/config');
+var app = express();
+
+// Log the top-level configuration for debugging.
+console.log('Config: %j', config);
+
+// basic health check
+app.get('/up', function (req, res) {
+  res.status(204).send();
+});
+
+// listen for requests
+app.listen(config.port, config.hostname)
+  .on('listening', function () {
+    console.log('Server %s listening at %s:%s...', process.pid, this.address().address, this.address().port);
+  });

@@ -1,0 +1,14 @@
+{
+  "name": "<%= appname %>",
+  "version": "0.0.1",
+  "description": "<%= description %>",
+  "main": "index.js",
+  "scripts": {
+    "start": "node bin/server",
+  },
+  "dependencies": {
+    "body-parser": "^1.13.3",
+    "bunyan": "^1.4.0",
+    "express": "^4.13.2",
+  }
+}
