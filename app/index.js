@@ -33,6 +33,7 @@ var myGenerator = generators.Base.extend({
     }.bind(this);
     copyTpl('bin/server', 'bin/server');
     copyTpl('lib/config.js', 'lib/config.js');
+    copyTpl('lib/logger.js', 'lib/logger.js');
     copyTpl('package.json', 'package.json');
   },
   install: function () {
