@@ -3,23 +3,41 @@
 var generators = require('yeoman-generator');
 
 var myGenerator = generators.Base.extend({
-  getProps: function () {
+  prompting: function () {
     var done = this.async();
-    this.prompt({
-      type: 'input',
-      name: 'name',
-      message: 'your project name',
-      default: this.appname
-    }, function (answers) {
-      this.log(answers.name);
+    this.prompt([
+      {
+        type: 'input',
+        name: 'name',
+        message: 'your project name',
+        default: this.appname
+      },
+      {
+        type: 'input',
+        name: 'description',
+        message: 'project description',
+        default: ''
+      }
+    ], function (answers) {
+      this.props = answers;
       done();
     }.bind(this));
   },
-  setupAppFiles: function () {
-    this.log('setting up app');
+  writing: function () {
+    var copyTpl = function copyTpl(tplPath, destPath) {
+      this.fs.copyTpl(
+        this.templatePath(tplPath),
+        this.destinationPath(destPath),
+        this.props
+      );
+    }.bind(this);
+    copyTpl('bin/server', 'bin/server');
+    copyTpl('lib/config.js', 'lib/config.js');
+    copyTpl('package.json', 'package.json');
   },
-  installDependencies: function () {
+  install: function () {
     this.log('installing dependencies');
+    this.npmInstall();
   }
 });
 
