@@ -3,6 +3,7 @@
 
 var express = require('express');
 var config = require('../lib/config');
+var fooSubApp = require('../lib/endpoints/foo');
 var logger = require('../lib/logger');
 var app = express();
 
@@ -13,6 +14,8 @@ logger.log('Config: %j', config);
 app.get('/up', function (req, res) {
   res.status(204).send();
 });
+
+app.use('/foo', fooSubApp.getSubApp());
 
 // listen for requests
 app.listen(config.port, config.hostname)
